@@ -4,6 +4,7 @@ using AdvertApi.Models;
 using AutoMapper;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using System.Collections.Generic;
 
 namespace AdvertApi.Services
 {
@@ -39,12 +40,12 @@ namespace AdvertApi.Services
             {
                 var record = await context.LoadAsync<AdvertDbModel>(model.Id);
 
-                if(record == null)
+                if (record == null)
                 {
-                    throw new Exception($"A record with id = {model.Id} was not found");
+                    throw new KeyNotFoundException($"A record with id = {model.Id} was not found");
                 }
 
-                if(model.Status == AdvertStatus.Active)
+                if (model.Status == AdvertStatus.Active)
                 {
                     record.Status = AdvertStatus.Active;
                     await context.SaveAsync(record);
