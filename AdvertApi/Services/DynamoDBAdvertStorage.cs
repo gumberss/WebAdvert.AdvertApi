@@ -7,11 +7,11 @@ using Amazon.DynamoDBv2.DataModel;
 
 namespace AdvertApi.Services
 {
-    public class AdvertStorageService : IAdvertStorageService
+    public class DynamoDBAdvertStorage : IAdvertStorageService
     {
         private readonly IMapper _mapper;
 
-        public AdvertStorageService(IMapper mapper)
+        public DynamoDBAdvertStorage(IMapper mapper)
         {
             _mapper = mapper;
         }

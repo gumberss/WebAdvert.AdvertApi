@@ -21,7 +21,7 @@ namespace AdvertApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper();
-            services.AddTransient<IAdvertStorageService, AdvertStorageService>();
+            services.AddTransient<IAdvertStorageService, DynamoDBAdvertStorage>();
             services.AddControllers();
         }
 
