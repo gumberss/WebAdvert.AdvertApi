@@ -8,6 +8,6 @@ namespace AdvertApi.Services
     {
         Task<String> Add(AdvertModel model);
 
-        Task<bool> Confirm(ConfirmAdvertModel model);
+        Task Confirm(ConfirmAdvertModel model);
     }
 }

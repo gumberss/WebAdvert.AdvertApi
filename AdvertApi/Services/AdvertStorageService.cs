@@ -47,7 +47,7 @@ namespace AdvertApi.Services
                 if(model.Status == AdvertStatus.Active)
                 {
                     record.Status = AdvertStatus.Active;
-                    await context.SaveAsync(record)
+                    await context.SaveAsync(record);
                 }
                 else
                 {

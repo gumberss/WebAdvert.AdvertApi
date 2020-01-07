@@ -1,3 +1,4 @@
+using AdvertApi.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,7 +21,7 @@ namespace AdvertApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper();
-
+            services.AddTransient<IAdvertStorageService, AdvertStorageService>();
             services.AddControllers();
         }
 
