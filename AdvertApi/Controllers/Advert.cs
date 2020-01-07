@@ -44,5 +44,23 @@ namespace AdvertApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpPut]
+        [Route("Confirm")]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> Confirm(ConfirmAdvertModel model)
+        {
+            try
+            {
+                await _advertStorageService.Confirm(model);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+            return new OkResult();
+        }
     }
 }
