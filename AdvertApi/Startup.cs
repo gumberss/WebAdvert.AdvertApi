@@ -1,4 +1,6 @@
+using AdvertApi.HealthChecks;
 using AdvertApi.Services;
+using Amazon.DynamoDBv2;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,7 +24,13 @@ namespace AdvertApi
         {
             services.AddAutoMapper();
             services.AddTransient<IAdvertStorageService, DynamoDBAdvertStorage>();
+            services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
+            services.AddAWSService<IAmazonDynamoDB>();
+
             services.AddControllers();
+
+            services.AddHealthChecks()
+                .AddCheck<StorageHealthCheck>("Storage");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +44,8 @@ namespace AdvertApi
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseHealthChecks("/health");
 
             app.UseEndpoints(endpoints =>
             {

@@ -11,10 +11,12 @@ namespace AdvertApi.Services
     public class DynamoDBAdvertStorage : IAdvertStorageService
     {
         private readonly IMapper _mapper;
+        private readonly IAmazonDynamoDB _client;
 
-        public DynamoDBAdvertStorage(IMapper mapper)
+        public DynamoDBAdvertStorage(IMapper mapper, IAmazonDynamoDB client)
         {
             _mapper = mapper;
+            _client = client;
         }
 
         public async Task<string> Add(AdvertModel model)
@@ -33,10 +35,20 @@ namespace AdvertApi.Services
             return dbModel.Id;
         }
 
+        public async Task<bool> CheckHealthAsync()
+        {
+            using (var context = new DynamoDBContext(_client))
+            {
+                var tableData = await _client.DescribeTableAsync("Adverts");
+
+                return String.Compare(tableData.Table.TableStatus, "Active", true) == 0;
+            }
+        }
+
         public async Task Confirm(ConfirmAdvertModel model)
         {
-            using (var client = new AmazonDynamoDBClient())
-            using (var context = new DynamoDBContext(client))
+            
+            using (var context = new DynamoDBContext(_client))
             {
                 var record = await context.LoadAsync<AdvertDbModel>(model.Id);
 

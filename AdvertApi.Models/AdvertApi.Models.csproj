@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Authors>Gustavo Marin Suppi</Authors>
+    <Company>none</Company>
+    <Product>Web AdvertMicroservices</Product>
+    <PackageProjectUrl>https://github.com/gumberss/WebAdvert.AdvertApi</PackageProjectUrl>
+    <Version>1.0.0</Version>
+    <PackageId>AdvertApi.Models.GumBerS</PackageId>
   </PropertyGroup>
 
 </Project>
